@@ -7,7 +7,45 @@
 </head>
 <body>
     <script>
-        console.log("Hello World");
+        function getComputerChoice() {
+            let choice = Math.random();
+            if (choice <= 0.33) {
+                return "rock";
+            } else if (choice >= 0.66) {
+                return "paper";
+            } else {
+                return "scissors";
+            }
+        }
+        function getHumanChoice() {
+            let choice = prompt("Rock, paper, or scissors?");
+            choice = choice.toLowerCase().trim();
+            if (choice === "rock") {
+                return choice;
+            } else if (choice === "paper") {
+                return choice;
+            } else if (choice === "scissors") {
+                return choice;
+            } else {
+                return "Not a valid Choice";
+            }
+        }
+
+        function playRound(humanChoice, computerChoice) {
+            // detects if there's a tie first
+            if (humanChoice === computerChoice) {
+                console.log(`Tie! ${humanChoice} ties ${computerChoice}`);
+            }
+
+        }
+
+        let humanScore = 0;
+        let computerScore = 0;
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+
+        playRound(humanSelection, computerSelection);
+        
     </script>
 </body>
 </html>
