@@ -1,5 +1,4 @@
-let humanScore = 0;
-let computerScore = 0;
+
 
 function getComputerChoice() {
     let choice = Math.random();
@@ -27,9 +26,10 @@ function getHumanChoice(choice) {
 
 function playRound(humanChoice, computerChoice) {
     // detects if there's a tie first
+    round++;
     if (humanChoice === computerChoice) {
         // console.log(`Tie! ${humanChoice} ties ${computerChoice}`);
-        result(humanChoice, computerChoice, humanScore, computerScore, "tied", "ties");
+        result(humanChoice, computerChoice, humanScore, computerScore, "tied", "ties", round);
     } else {
 
             // rock rps logic
@@ -38,11 +38,11 @@ function playRound(humanChoice, computerChoice) {
                 if (computerChoice === "paper") {
                     // console.log(`You lost. ${humanChoice} loses to ${computerChoice}`);
                     computerScore++;
-                    result(humanChoice, computerChoice, humanScore, computerScore, "lost", "loses");
+                    result(humanChoice, computerChoice, humanScore, computerScore, "lost", "loses", round);
                 } else {
                     // console.log(`You won! ${humanChoice} beats ${computerChoice}`);
                     humanScore++;
-                    result(humanChoice, computerChoice, humanScore, computerScore, "won", "beats");
+                    result(humanChoice, computerChoice, humanScore, computerScore, "won", "beats", round);
                 }
             }
 
@@ -52,11 +52,11 @@ function playRound(humanChoice, computerChoice) {
                 if (computerChoice === "scissors") {
                     // console.log(`You lost. ${humanChoice} loses to ${computerChoice}`);
                     computerScore++;
-                    result(humanChoice, computerChoice, humanScore, computerScore, "lost", "loses");
+                    result(humanChoice, computerChoice, humanScore, computerScore, "lost", "loses", round);
                 } else {
                     // console.log(`You won! ${humanChoice} beats ${computerChoice}`);
                     humanScore++;
-                    result(humanChoice, computerChoice, humanScore, computerScore, "won", "beats");
+                    result(humanChoice, computerChoice, humanScore, computerScore, "won", "beats", round);
                 }
             }
 
@@ -66,30 +66,23 @@ function playRound(humanChoice, computerChoice) {
                 if (computerChoice === "rock") {
                     // console.log(`You lost. ${humanChoice} loses to ${computerChoice}`);
                     computerScore++;
-                    result(humanChoice, computerChoice, humanScore, computerScore, "lost", "loses");
+                    result(humanChoice, computerChoice, humanScore, computerScore, "lost", "loses", round);
                 } else {
                     // console.log(`You won! ${humanChoice} beats ${computerChoice}`);
                     humanScore++;
-                    result(humanChoice, computerChoice, humanScore, computerScore, "won", "beats");
+                    result(humanChoice, computerChoice, humanScore, computerScore, "won", "beats", round);
                 }
             }
         }
     }
-
-
-    
-// game rounds
-
-
-
-/*
-
-if (humanScore > computerScore) {
-    // console.log(`You won!\nYour Score: ${humanScore}\nComputer Score: ${computerScore}`);
-} else {
-    // console.log(`You lost.\nYour Score: ${humanScore}\nComputer Score: ${computerScore}`);
+let humanScore = 0;
+let computerScore = 0;
+let round = 0;
+function resetGame() {
+    humanScore = 0;
+    computerScore = 0;
+    round = 0;
 }
-*/
 
 
 // interaction with dom
@@ -114,11 +107,25 @@ scissors.addEventListener("click", () => {
     playRound(humanSelection, computerSelection);
 })
 
-function result(humanChoice, computerChoice, humanScore, computerScore, win, decision) {
+function result(humanChoice, computerChoice, humanScore, computerScore, win, decision, round) {
     let result = document.querySelector("#result");
     let humanPoints = document.querySelector("#human-score");
     let computerPoints = document.querySelector("#computer-score");
-    result.textContent = `You ${win}. ${humanChoice} ${decision} ${computerChoice}`;
+    let roundNum = document.querySelector("#round");
+
+    if (round === 5) {
+        if (humanScore > computerScore) {
+            roundNum.textContent = `You win!!`;
+        } else {
+            roundNum.textContent = `Aw, you lost.`;
+        }
+        resetGame();
+    } else {
+        roundNum.textContent = `Round: ${round}`;
+    }
+
+    result.textContent = `You ${win} this round. ${humanChoice} ${decision} ${computerChoice}`;
     humanPoints.textContent = `Your Score: ${humanScore}`;
-    computerPoints.textContent = `Computer Score: ${computerScore}`;
+    computerPoints.textContent = `Computer Score: ${computerScore}`;        
+
 }
