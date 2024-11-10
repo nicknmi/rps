@@ -66,18 +66,17 @@ function playRound(humanChoice, computerChoice) {
         }
     }
 
+
+    
 // game rounds
-function playGame() {
-    for (let i = 0; i < 5; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
-    }
-}
+
+const humanSelection = getHumanChoice();
+const computerSelection = getComputerChoice();
+playRound(humanSelection, computerSelection);
 
 let humanScore = 0;
 let computerScore = 0;
-playGame();
+
 if (humanScore > computerScore) {
     console.log(`You won!\nYour Score: ${humanScore}\nComputer Score: ${computerScore}`);
 } else {
